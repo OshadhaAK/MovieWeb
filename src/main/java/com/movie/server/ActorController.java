@@ -1,7 +1,9 @@
 package com.movie.server;
 
 import com.movie.server.models.Actor;
+import com.movie.server.models.Movie;
 import com.movie.server.repositories.ActorRepository;
+import com.movie.server.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
-public class ServerController {
+public class ActorController {
 
     @Autowired
     private ActorRepository actorRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
 
     @RequestMapping(value = "/allActors", method = RequestMethod.GET)
     public List<Actor> getAllActors() {
@@ -42,5 +47,8 @@ public class ServerController {
         actor.set_id(id);
         actorRepository.save(actor);
     }
+
+
+
 
 }

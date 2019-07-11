@@ -12,10 +12,30 @@ public class Movie {
     public String name;
     public int year;
     public String genre;
-    public ArrayList<Actor>actors;
+    public ArrayList<String> actors;
     public String description;
     public String link;
 
+    public Movie() {
+    }
+
+    public Movie(ObjectId _id, String name, int year, String genre, ArrayList<String> actors, String description, String link) {
+        this._id = _id;
+        this.name = name;
+        this.year = year;
+        this.genre = genre;
+        this.actors = actors;
+        this.description = description;
+        this.link = link;
+    }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 
     public String getName() {
         return name;
@@ -41,11 +61,11 @@ public class Movie {
         this.genre = genre;
     }
 
-    public ArrayList<Actor> getActors() {
+    public ArrayList<String> getActors() {
         return actors;
     }
 
-    public void setActors(ArrayList<Actor> actors) {
+    public void setActors(ArrayList<String> actors) {
         this.actors = actors;
     }
 
