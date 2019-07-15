@@ -10,15 +10,26 @@ public class Actor {
     public String name;
     public String dateofbirth;
     public String description;
+    public String link;
 
     public Actor() {}
 
-    public Actor(ObjectId _id, String name, String dateofbirth, String description) {
+    public Actor(ObjectId _id, String name, String dateofbirth, String description, String link) {
         this._id = _id;
         this.name = name;
         this.dateofbirth = dateofbirth;
         this.description = description;
+        this.link = link;
     }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public String get_id() {
         return _id.toHexString();
     }

@@ -1,12 +1,16 @@
 package com.movie.server;
 
+import com.movie.server.models.Actor;
 import com.movie.server.models.Movie;
+import com.movie.server.models.MovieData;
+import com.movie.server.repositories.ActorRepository;
 import com.movie.server.repositories.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,6 +19,9 @@ public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private ActorRepository actorRepository;
+
     @RequestMapping(value = "/movies/get-all", method = RequestMethod.GET)
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
@@ -22,8 +29,30 @@ public class MovieController {
 
 
     @RequestMapping(value = "/movies/get/{id}", method = RequestMethod.GET)
-    public Movie getMovieById(@PathVariable("id") ObjectId id) {
-        return movieRepository.findBy_id(id);
+    public MovieData getMovieById(@PathVariable("id") ObjectId id) {
+
+        Movie movie = movieRepository.findBy_id(id);
+
+        MovieData movieData = new MovieData();
+
+        movieData.set_id(movie.get_id());
+        movieData.setName(movie.getName());
+        movieData.setYear(movie.getYear());
+        movieData.setGenre(movie.getGenre());
+        movieData.setDescription(movie.getDescription());
+        movieData.setLink(movie.getLink());
+
+        List<Actor> actorList = new ArrayList<>();
+
+        for (String actorId:movie.getActorIds()){
+            ObjectId a = new ObjectId(actorId);
+            Actor actor = actorRepository.findBy_id(a);
+            actorList.add(actor);
+        }
+
+        movieData.setActors(actorList);
+
+        return movieData;
     }
 
     @RequestMapping(value = "/movies/add-movie", method = RequestMethod.POST)
