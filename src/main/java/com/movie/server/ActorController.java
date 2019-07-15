@@ -21,28 +21,28 @@ public class ActorController {
     @Autowired
     private MovieRepository movieRepository;
 
-    @RequestMapping(value = "/allActors", method = RequestMethod.GET)
+    @RequestMapping(value = "/actors/get-all", method = RequestMethod.GET)
     public List<Actor> getAllActors() {
         return actorRepository.findAll();
     }
 
-    @RequestMapping(value = "/Actor/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/actors/get/{id}", method = RequestMethod.GET)
     public Actor getActorById(@PathVariable("id") ObjectId id) {
         return actorRepository.findBy_id(id);
     }
 
-    @RequestMapping(value = "/addActor", method = RequestMethod.POST)
+    @RequestMapping(value = "/actors/add-actor", method = RequestMethod.POST)
     public Actor createActor(@Valid @RequestBody Actor actor) {
         actor.set_id(ObjectId.get());
         actorRepository.save(actor);
         return actor;
     }
-    @RequestMapping(value = "/Actor/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/actors/delete/{id}", method = RequestMethod.DELETE)
     public void deleteActor(@PathVariable ObjectId id) {
         actorRepository.delete(actorRepository.findBy_id(id));
     }
 
-    @RequestMapping(value = "/Actor/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/actors/modify/{id}", method = RequestMethod.PUT)
     public void modifyActorById(@PathVariable("id") ObjectId id, @Valid @RequestBody Actor actor) {
         actor.set_id(id);
         actorRepository.save(actor);
